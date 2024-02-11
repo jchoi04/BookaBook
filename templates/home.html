@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookABook</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            background-color: white; /* Set background color to white */
+            font-weight: bold;
+        }
+
+        .navbar-brand, .nav-link, .form-control, .btn {
+            color: #2A9D8F !important; /* Set text color to #2A9D8F */
+        }
+
+        .navbar-toggler-icon {
+            background-color: #2A9D8F; /* Set the color of the navbar toggler icon for mobile view */
+        }
+
+        .navbar-toggler {
+            border-color: #2A9D8F; /* Set the border color of the navbar toggler button */
+        }
+
+        .nav-link {
+            font-weight: bold;
+        }
+
+        /* Bottom-of-Header */
+        .line {
+            background-color: black;
+            padding-bottom: 0.5px;              
+            margin-bottom: 20px;                /*THIS CONTROLS THE ENTIRE BODY*/
+        }    
+
+        /* Search bar styles */
+        .form-control {
+            border-radius: 100px; /* Set more rounded borders for the search bar */
+            background-color: #f0f0f0; /* Set light gray background color for the search bar */
+        }
+
+        /* Custom section styles */
+        .custom-section {
+            margin-top: 20px; /*Add some top margin to the section  THIS IS THE TEXT AND LOGO*/
+        }
+
+        .left-component {
+            width: 60%; /* Set the width of the left component to 60% */
+            padding: 20px; /* Add some padding for spacing */
+        }
+
+        #sign2 {
+            background-color: #264653;
+        }
+
+        #sign3 {
+            background-color: white;
+            border-color: #2A9D8F;
+        }
+
+        .right-component {
+            width: 36%; /* Set the width of the right component to 40% */
+            padding: 20px; /* Add some padding for spacing */
+            margin-top: -100px;
+            margin-left: +50px;
+        }
+
+        /* Rounded rectangular light gray box styles under the main body */
+        .rounded-box {
+            background-color: #f0f0f0; /* Set light gray background color */
+            border-radius: 15px; /* Set rounded corners */
+            padding: 20px; /* Add padding for spacing */
+            margin-top: 38px; /* Add top margin */
+        }
+
+        #disclaimer {
+            font-style: italic;
+            color: #264653;
+        }
+
+        /* Ensure the section has some space on smaller screens */
+        @media (max-width: 768px) {
+            .left-component, .right-component {
+                width: 100%; /* On smaller screens, make both components take full width */
+            }
+        }
+
+        .social-icons {
+            margin-right: 100px;
+        }
+
+        .social-icons li{
+            list-style: none;
+            display: inline-block;
+            padding: 10px;
+        }
+
+        .social-icons a i {
+            color: white;
+        }
+        /* Footer styles */
+        .footer {
+            background-color: #264653;
+            color: white;
+            padding: 50px 0;
+            margin-top: 0.25in;
+        }
+
+        .footer h3 {
+            margin-bottom: 20px;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+    #searchResults {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .result {
+        display: flex;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        cursor: pointer;
+    }
+
+    .result img {
+        max-width: 50px;
+        max-height: 50px;
+        margin-right: 10px;
+    }
+
+    .radioButtons {
+        margin-top: 0px;
+        margin-left: 72px;
+    }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <!-- Your Logo -->
+          <a class="navbar-brand" href="">
+            <img src="{{url_for('static',filename='logo.svg')}}" alt="BookABook" height="50">
+          </a>
+          <!-- Navigation Links -->
+          <div class="navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              
+              <!-- Subjects Dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="subjectsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  COURSES
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="subjectsDropdown">
+                  <li><a class="dropdown-item" href="/math">Math</a></li>
+                  <li><a class="dropdown-item" href="/english">English</a></li>
+                  <li><a class="dropdown-item" href="/science">Science</a></li>
+                  <li><a class="dropdown-item" href="/history">History</a></li>
+                  <li><a class="dropdown-item" href="/forLang">Foreign Languages</a></li>
+                  <!-- Add more subjects as needed -->
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <!-- Navigation Links (Right side) -->
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/login">LOG IN</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/signup" >SIGN UP</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="line"></div>
+
+    <!-- Searchbar with formatting and showing result for "calc 1"-->
+    <div class="container mt-3 py-5 custom-search-container">
+        <form class="d-flex custom-search-form">
+            <input id="searchInput" class="form-control rounded me-2 py-4 custom-search-input" type="search" placeholder="Look up by ISBN, title, author, keyword, etc." aria-label="Search" oninput="showResults()">
+            <button class="btn btn-outline-success rounded-end custom-search-btn" type="submit">Search</button>
+        </form>
+        <div id="searchResults"></div>
+    </div>
+
+    <!-- Radio Buttons -->
+    <div class="form-group radioButtons ml-5" id>
+        <label for="searchOptions" class="mb-1"style="margin-right: 25px;">Search in:</label>
+        <div class="form-check form-check-inline me-3">
+            <input class="form-check-input" type="radio" name="criteria" id="author" value="author">
+            <label class="form-check-label" for="author">Author</label>
+        </div>
+
+        <div class="form-check form-check-inline me-3">
+            <input class="form-check-input" type="radio" name="criteria" id="title" value="title">
+            <label class="form-check-label" for="title">Title</label>
+        </div>
+
+        <div class="form-check form-check-inline me-3">
+            <input class="form-check-input" type="radio" name="criteria" id="topic" value="topic">
+            <label class="form-check-label" for="topic">Topic</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="criteria" id="isbn" value="isbn">
+            <label class="form-check-label" for="isbn">ISBN</label>
+        </div>
+    </div>
+
+    <!-- Custom Section -->
+    <div class="container custom-section">
+        <div class="row">
+            <!-- Left Component with Text -->
+            <div class="col-md-8 left-component">
+                <h2>Students helping students. Any textbook you need, at the lowest possible price**</h2>
+                <p>Look up a textbook, and see what options of purchase other BookaBook users who have bought the textbook recommend. Recommend textbook options to others. Vote on others' recommendations.</p>
+                <br>
+                <p id="disclaimer">**according to other users.</p>
+
+                <!-- Sign Up Button -->
+                <a href="/signup" class="btn btn-primary text-white" id="sign2">Sign Up</a>
+
+                <!-- Learn More Button -->
+                <a href="/learn-more" class="btn btn-outline-primary" id="sign3">Learn More</a>
+            </div>
+
+            <!-- Right Component with Visual -->
+            <div class="col-md-4 right-component">
+                <img src="{{url_for('static',filename='nb.svg')}}" alt="Visual" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+
+<!-- Rounded Rectangular Light Gray Box -->
+<div class="container rounded-box">
+    <!-- Content for the rounded box goes here -->
+
+    <div class="row mt-3">
+        <!-- Left Section -->
+        <div class="col-md-3 offset-md-1">
+            <!-- First Image Section -->
+            <a href="/history" class="image-section">
+                <img src="{{url_for('static',filename='history.svg')}}" alt="History" class="img-fluid">
+            </a>
+
+            <!-- Second Image Section -->
+            <a href="/math" class="image-section">
+                <img src="{{url_for('static',filename='math.svg')}}" alt="Math" class="img-fluid">
+            </a>
+
+            <!-- Third Image Section -->
+            <a href="/forLang" class="image-section">
+                <img src="{{url_for('static',filename='forLang.svg')}}" alt="Foreign Language" class="img-fluid">
+            </a>
+        </div>
+
+        <!-- Right Section -->
+        <div class="col-md-3 offset-md-3">
+            <!-- Fourth Image Section -->
+            <a href="/arts" class="image-section">
+                <img src="{{url_for('static',filename='arts.svg')}}" alt="Arts" class="img-fluid">
+            </a>
+
+            <!-- Fifth Image Section -->
+            <a href="/english" class="image-section">
+                <img src="{{url_for('static',filename='english.svg')}}" alt="English" class="img-fluid">
+            </a>
+
+            <!-- Sixth Image Section -->
+            <a href="/science" class="image-section">
+                <img src="{{url_for('static',filename='science.svg')}}" alt="Science" class="img-fluid">
+            </a>
+        </div>
+    </div>
+</div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>BookABook pushes user-involvement to promote accessibility in education.</h3>
+                    <p><span class="contact-label">Email:</span> cs@bookabook</p>
+                    <p><span class="contact-label">Phone:</span> +1-800-TXT-BOOK</p>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <br>
+                    <h4>Find Us On:</h4>
+                    <ul class="social-icons">
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <!-- Add more social media icons as needed -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function showResults() {
+            var searchTerm = document.getElementById("searchInput").value.toLowerCase();
+            var resultsContainer = document.getElementById("searchResults");
+
+            // Clear previous results
+            resultsContainer.innerHTML = '';
+
+            // Check if the search term is "calc 1"
+            if (searchTerm === "calc 1") {
+                // Display results
+                resultsContainer.style.display = 'block';
+
+                // Create a result element with clickable image and description
+                var resultElement = document.createElement("a");
+                resultElement.href = '/calc1'; // Replace with the actual link
+                resultElement.className = "result";
+
+                // Image
+                var imageElement = document.createElement("img");
+                imageElement.src = "{{url_for('static',filename='calc.jpg')}}"; // Replace with the actual image path
+                resultElement.appendChild(imageElement);
+
+                // Content (description and additional information)
+                var resultContent = document.createElement("div");
+                resultContent.className = "result-content";
+
+                // Description with a clickable link
+                var descriptionLink = document.createElement("a");
+                descriptionLink.href = "/calc1"; // Replace with the actual link
+                descriptionLink.target = "_blank"; // Open in a new tab
+                var descriptionElement = document.createElement("div");
+                descriptionElement.textContent = "Calculus 1";
+                descriptionLink.appendChild(descriptionElement);
+                resultContent.appendChild(descriptionLink);
+
+                // Additional information or any other content can be added here
+
+                resultElement.appendChild(resultContent);
+
+                // Set the width of the result bar to match the search bar dynamically
+                resultElement.style.width = document.getElementById("searchInput").offsetWidth + 'px';
+
+                // Append the result to the results container
+                resultsContainer.appendChild(resultElement);
+            } else {
+                // Hide results if the search term is not "calc 1"
+                resultsContainer.style.display = 'none';
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="{{url_for('static',filename='home.js')}}"></script>
+
+</body>
+</html>
