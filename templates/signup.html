@@ -109,7 +109,7 @@
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" href="/">
                 <img src="{{url_for('static',filename='logo.svg')}}" alt="BookABook" height="50">
             </a>
             <div class="navbar-collapse" id="navbarNav">
@@ -121,9 +121,9 @@
                         <ul class="dropdown-menu" aria-labelledby="subjectsDropdown">
                             <li><a class="dropdown-item" href="/math">Math</a></li>
                             <li><a class="dropdown-item" href="/english">English</a></li>
-                            <li><a class="dropdown-item" href="/science">Science</a></li>
+                            <li><a class="dropdown-item" href="/science">Scixence</a></li>
                             <li><a class="dropdown-item" href="/history">History</a></li>
-                            <li><a class="dropdown-item" href="/orLang">Foreign Languages</a></li>
+                            <li><a class="dropdown-item" href="/forLang">Foreign Languages</a></li>
                             <li><a class="dropdown-item" href="/arts">Arts</a></li>
                         </ul>
                     </li>
@@ -161,7 +161,7 @@
                         <button type="submit" class="btn btn-primary">Sign Up</button>
                     </form>
                     <p class="message mt-3">{{ message }}</p>
-                    <p class="login-link mt-2">Already have an account? <a href="/" id="yesacc">Login</a></p>
+                    <p class="login-link mt-2">Already have an account? <a href="/login" id="yesacc">Login</a></p>
                 </div>
             </div>
         </div>
